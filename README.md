@@ -1,6 +1,7 @@
 # gopackageupdater
 
 - This repository is used to update the external packages from given directory path.
+- This package can't add new packages dependencies.
 - New function accepts two parameters dirPath and mode. and return updatePKG pointer
 - default mode is gin
 - Start() method starting the package update process
