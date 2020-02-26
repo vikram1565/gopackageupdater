@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	p := pkg.New("E:/Go-Projects/go/src/FriendsBook", "")
+	p := pkg.New("E:/Go-Projects/go/src/FriendsBook")
 	p.Start()
 }
