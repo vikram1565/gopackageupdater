@@ -16,21 +16,16 @@ import (
 // Package - struct
 type updatePKG struct {
 	directoryPath string
-	mode          string
 }
 
 // New - New
-func New(dirPath, mode string) *updatePKG {
+func New(dirPath string) *updatePKG {
 	if dirPath == "" {
 		log.Fatal("Directory path is empty.")
-	}
-	if mode == "" {
-		mode = "gin"
 	}
 	if _, err := os.Stat(dirPath); err == nil {
 		return &updatePKG{
 			directoryPath: dirPath,
-			mode:          mode,
 		}
 	}
 	log.Fatal(dirPath + " is not a directory")
@@ -85,8 +80,7 @@ func getStandardPackages(dirPath string) (string, error) {
 func getExternalPackages(p *updatePKG) ([]string, error) {
 	// list all imported packages
 	var pkgArray []string
-	mode := "-tags=" + p.mode
-	cmd := exec.Command("go", "list", mode, "-f", "{{.Imports}}", "./...")
+	cmd := exec.Command("go", "list", "-f", "{{.Imports}}", "./...")
 	cmd.Dir = p.directoryPath
 	importPkgData := bytes.Buffer{}
 	er := bytes.Buffer{}
@@ -148,6 +142,6 @@ func generateExe(dirPath string) error {
 		log.Fatal("Failed to generate executable: ", cmdError, buf.String())
 		return cmdError
 	}
-	log.Println("Executable is genrated at : " + dirPath)
+	log.Println("Executable is generated at : " + dirPath)
 	return nil
 }
